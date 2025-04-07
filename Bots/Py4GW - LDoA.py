@@ -469,7 +469,7 @@ def Survivor():
     max_health = Agent.GetMaxHealth(Player. GetAgentID())
     current_health = Agent.GetHealth(Player. GetAgentID()) * max_health    
     
-    if current_health < 40:
+    if current_health < 45:
         return True  
     return False 
 
@@ -485,7 +485,7 @@ def Survivor_Hamnet():
     max_health = Agent.GetMaxHealth(Player. GetAgentID())
     current_health = Agent.GetHealth(Player. GetAgentID()) * max_health    
     
-    if current_health < 120:
+    if current_health < 45:
         return True  
     return False 
 
