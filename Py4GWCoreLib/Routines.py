@@ -797,7 +797,7 @@ class Routines:
             gadget_array = AgentArray.Filter.ByDistance(gadget_array, Player.GetXY(), max_distance)
             gadget_array = AgentArray.Sort.ByDistance(gadget_array,Player.GetXY())
             for agent_id in gadget_array:
-                if Agent.GetGadgetID(agent_id) == 8141: #8141 is the ID for a chest
+                if Agent.GetGadgetID(agent_id) == 8141 or Agent.GetGadgetID(agent_id) == 69 or Agent.GetGadgetID(agent_id) == 4579 or Agent.GetGadgetID(agent_id) == 9: #8141 is the ID for a chest
                     return agent_id
 
             return 0
