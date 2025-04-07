@@ -571,9 +571,10 @@ def handle_loot():
     global FSM_vars
     my_id = Player.GetAgentID()
     my_x, my_y = Agent.GetXY(my_id)
+    item_distance = 1200
 
     item_array = AgentArray.GetItemArray()
-    item_array = AgentArray.Filter.ByDistance(item_array, (my_x, my_y), 1200)
+    item_array = AgentArray.Filter.ByDistance(item_array, (my_x, my_y), item_distance)
 
     agent_to_item_map = {
         agent_id: Agent.GetItemAgent(agent_id).item_id
