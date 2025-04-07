@@ -751,6 +751,7 @@ def early_handle_map_path(map_pathing):
     if not enemy_array:
         FSM_vars.current_target_id = None
         FSM_vars.has_interacted = False 
+        handle_loot() 
         Routines.Movement.FollowPath(map_pathing, FSM_vars.movement_handler)  
         return
 
