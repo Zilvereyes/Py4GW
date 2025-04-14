@@ -1468,7 +1468,7 @@ FSM_vars.state_machine_lvl2_10.AddState(name="FOLLOWING RURIK", execute_fn = lam
 FSM_vars.state_machine_lvl2_10.AddState(name="WAITING RURIK KILLING", execute_fn = lambda: set_killing_routine(), exit_condition = lambda: end_killing_routine_1() or (Survivor() or Death()), run_once = False)
 FSM_vars.state_machine_lvl2_10.AddState(name="GOING BACK TO ASCALON", execute_fn = lambda: LDoA_TravelToOutpost(bot_vars.outpost_ascalon_map), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_ascalon_map), transition_delay_ms = 3000, run_once = True)
 FSM_vars.state_machine_lvl2_10.AddState(name="WAITING OUTPOST MAP", exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_ascalon_map), transition_delay_ms = 3000, run_once = True)
-FSM_vars.state_machine_lvl2_10.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_wizards_folly), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_lvl2_10.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 FSM_vars.state_machine_lvl2_10.AddSubroutine(name="CHECK QUEST STATUS", sub_fsm = FSM_vars.state_machine_ResetQuest,  condition_fn=lambda: Quest.IsQuestCompleted(bot_vars.CharrAtTheGate))
 FSM_vars.state_machine_lvl2_10.AddState(name="RESET CHECK QUEST ROUTINE", execute_fn = lambda: FSM_vars.state_machine_ResetQuest.reset())
 
@@ -1485,7 +1485,7 @@ FSM_vars.state_machine_lvl11_20.AddState(name="WAITING EXPLORABLE MAP", execute_
 FSM_vars.state_machine_lvl11_20.AddState(name="USING IMP STONE", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = True)
 FSM_vars.state_machine_lvl11_20.AddState(name="RUN", execute_fn = lambda: handle_map_path(FSM_vars.bandit_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.bandit_pathing, FSM_vars.movement_handler) or Survivor_Hamnet(), run_once = False)
 FSM_vars.state_machine_lvl11_20.AddState(name="FIRE IMP IS FIRING", execute_fn = lambda: set_killing_routine(), exit_condition = lambda: end_killing_routine() or Survivor_Hamnet(), run_once = False)
-FSM_vars.state_machine_lvl11_20.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_wizards_folly), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_lvl11_20.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #___________________________ TAME PET ___________________________#
 FSM_vars.state_machine_TamePet.AddState(name="GOING OUT ASHFORD ABBEY", execute_fn = lambda: Routines.Movement.FollowPath(FSM_vars.goingout_ashfordabbey, FSM_vars.movement_handler, True), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.goingout_ashfordabbey, FSM_vars.movement_handler) or LDoA_IsExplorableMapReady(bot_vars.explorable_lakeside_county), run_once = False)
@@ -1762,7 +1762,7 @@ FSM_vars.state_machine_dull_carapaces.AddState(name="WAITING YOUR SLOW PC TO LOA
 FSM_vars.state_machine_dull_carapaces.AddState(name="GOING OUT IN DANGEROUS LANDS", execute_fn = lambda: Routines.Movement.FollowPath(FSM_vars.dull_carapaces_pathing_1, FSM_vars.movement_handler, True), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.dull_carapaces_pathing_1, FSM_vars.movement_handler), run_once = False)
 FSM_vars.state_machine_dull_carapaces.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = False)
 FSM_vars.state_machine_dull_carapaces.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.dull_carapaces_pathing_2), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.dull_carapaces_pathing_2, FSM_vars.movement_handler) or Death(), run_once = False)
-FSM_vars.state_machine_dull_carapaces.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_dull_carapaces.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #GARGOYLE SKULLS
 FSM_vars.state_machine_gargoyle_skulls.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_barradin_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_barradin_map), transition_delay_ms = 3000, run_once = True)
@@ -1773,7 +1773,7 @@ FSM_vars.state_machine_gargoyle_skulls.AddState(name="GOING OUT IN DANGEROUS LAN
 FSM_vars.state_machine_gargoyle_skulls.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_catacombs)), transition_delay_ms = 3000)
 FSM_vars.state_machine_gargoyle_skulls.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = True)
 FSM_vars.state_machine_gargoyle_skulls.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.gargoyle_skulls_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.gargoyle_skulls_pathing, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_gargoyle_skulls.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_gargoyle_skulls.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #GRAWL NECKLACES
 FSM_vars.state_machine_grawl_necklaces.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_barradin_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_barradin_map), transition_delay_ms = 3000, run_once = True)
@@ -1781,7 +1781,7 @@ FSM_vars.state_machine_grawl_necklaces.AddState(name="GOING OUT IN DANGEROUS LAN
 FSM_vars.state_machine_grawl_necklaces.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county)), transition_delay_ms = 3000)
 FSM_vars.state_machine_grawl_necklaces.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = False)
 FSM_vars.state_machine_grawl_necklaces.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.grawl_necklaces_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.grawl_necklaces_pathing, FSM_vars.movement_handler) or Survivor(), run_once = False)
-FSM_vars.state_machine_grawl_necklaces.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county), transition_delay_ms = 3000, run_once = True)
+FSM_vars.state_machine_grawl_necklaces.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #ICY LODESTONES
 FSM_vars.state_machine_icy_lodestones.AddState(name="GOING BACK TO FOIBLE'S FAIR", execute_fn = lambda: LDoA_TravelToOutpost(bot_vars.outpost_foible_map), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_foible_map), transition_delay_ms = 3000, run_once = True)
@@ -1790,7 +1790,7 @@ FSM_vars.state_machine_icy_lodestones.AddState(name="TRANSITION TO WIZARDS FOLLY
 FSM_vars.state_machine_icy_lodestones.AddState(name="WAITING EXPLORABLE MAP", exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_wizards_folly), transition_delay_ms = 3000)
 FSM_vars.state_machine_icy_lodestones.AddState(name="USING IMP STONE", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = False)
 FSM_vars.state_machine_icy_lodestones.AddState(name="RUN", execute_fn = lambda: handle_map_path(FSM_vars.icy_lodestones_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.icy_lodestones_pathing, FSM_vars.movement_handler) or Survivor(), run_once = False)
-FSM_vars.state_machine_icy_lodestones.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_wizards_folly), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_icy_lodestones.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #ENCHANTED LODESTONES
 FSM_vars.state_machine_lodestone.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_barradin_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_barradin_map), transition_delay_ms = 3000, run_once = True)
@@ -1798,7 +1798,7 @@ FSM_vars.state_machine_lodestone.AddState(name="GOING OUT IN DANGEROUS LANDS", e
 FSM_vars.state_machine_lodestone.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county)), transition_delay_ms = 3000)
 FSM_vars.state_machine_lodestone.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = False)
 FSM_vars.state_machine_lodestone.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.enchanted_lodestone_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.enchanted_lodestone_pathing, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_lodestone.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county), transition_delay_ms = 3000, run_once = True)
+FSM_vars.state_machine_lodestone.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #RED IRIS FLOWERS
 FSM_vars.state_machine_red_iris_flowers.AddState(name="ARE WE IN ASCALON?", execute_fn = lambda: LDoA_TravelToRandomRegion(bot_vars.outpost_ascalon_map), transition_delay_ms=4500, run_once = True)
@@ -1810,7 +1810,7 @@ FSM_vars.state_machine_red_iris_flowers.AddState(name="PATH 2", execute_fn = lam
 FSM_vars.state_machine_red_iris_flowers.AddState(name="PATH 3", execute_fn = lambda: handle_map_path_agressive(FSM_vars.red_iris_flowers_pathing_3), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.red_iris_flowers_pathing_3, FSM_vars.movement_handler), run_once = False)
 FSM_vars.state_machine_red_iris_flowers.AddState(name="PATH 4", execute_fn = lambda: handle_map_path_agressive(FSM_vars.red_iris_flowers_pathing_4), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.red_iris_flowers_pathing_4, FSM_vars.movement_handler), run_once = False)
 FSM_vars.state_machine_red_iris_flowers.AddState(name="PATH 5", execute_fn = lambda: handle_map_path_agressive(FSM_vars.red_iris_flowers_pathing_5), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.red_iris_flowers_pathing_5, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_red_iris_flowers.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_lakeside_county), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_red_iris_flowers.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #SKELETAL LIMBS
 FSM_vars.state_machine_skele_limbs.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_barradin_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_barradin_map), transition_delay_ms = 3000, run_once = True)
@@ -1821,7 +1821,7 @@ FSM_vars.state_machine_skele_limbs.AddState(name="GOING OUT IN DANGEROUS LANDS",
 FSM_vars.state_machine_skele_limbs.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_catacombs)), transition_delay_ms = 3000)
 FSM_vars.state_machine_skele_limbs.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = False)
 FSM_vars.state_machine_skele_limbs.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.skele_limbs_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.skele_limbs_pathing, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_skele_limbs.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_catacombs), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_skele_limbs.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #SKALE FINS
 FSM_vars.state_machine_skale_fin.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_ranik_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_ranik_map), transition_delay_ms = 3000, run_once = True)
@@ -1829,7 +1829,7 @@ FSM_vars.state_machine_skale_fin.AddState(name="GOING OUT IN DANGEROUS LANDS", e
 FSM_vars.state_machine_skale_fin.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_regent_valley)), transition_delay_ms = 3000)
 FSM_vars.state_machine_skale_fin.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = False)
 FSM_vars.state_machine_skale_fin.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.skale_fin_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.skale_fin_pathing, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_skale_fin.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_regent_valley), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_skale_fin.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #SPIDER LEGS
 FSM_vars.state_machine_spider_leg.AddState(name="FORT RANIK", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_ranik_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_ranik_map), transition_delay_ms = 3000, run_once = True)
@@ -1844,7 +1844,7 @@ FSM_vars.state_machine_spider_leg.AddState(name="INTERACTING WITH TOWN CRIER", e
 FSM_vars.state_machine_spider_leg.AddState(name="INTERACTING WITH TOWN CRIER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "DROPPING THE BASKET OF APPLES", Py4GW.Console.MessageType.Info), Keystroke.PressAndRelease(Key.Numpad2.value)), transition_delay_ms = 1000, run_once = True)
 FSM_vars.state_machine_spider_leg.AddState(name="MESSAGE", execute_fn = lambda: Py4GW.Console.Log(module_name, "HUNTING SPIDERS", Py4GW.Console.MessageType.Info), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_regent_valley), transition_delay_ms=100, run_once = True)
 FSM_vars.state_machine_spider_leg.AddState(name="FARMING SPIDER LEGS", execute_fn = lambda:handle_map_path(FSM_vars.spider_leg_pathing_2), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.spider_leg_pathing_2, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_spider_leg.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_regent_valley), transition_delay_ms = 1000, run_once = True)
+FSM_vars.state_machine_spider_leg.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #UNNATURAL SEEDS
 FSM_vars.state_machine_unnatural_seeds.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_barradin_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_barradin_map), transition_delay_ms = 3000, run_once = True)
@@ -1852,7 +1852,7 @@ FSM_vars.state_machine_unnatural_seeds.AddState(name="GOING OUT IN DANGEROUS LAN
 FSM_vars.state_machine_unnatural_seeds.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county)), transition_delay_ms = 3000)
 FSM_vars.state_machine_unnatural_seeds.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = True)
 FSM_vars.state_machine_unnatural_seeds.AddState(name="FARMING LODESTONES", execute_fn = lambda:handle_map_path(FSM_vars.unnatural_seeds_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.unnatural_seeds_pathing, FSM_vars.movement_handler), run_once = False)
-FSM_vars.state_machine_unnatural_seeds.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county), transition_delay_ms = 3000, run_once = True)
+FSM_vars.state_machine_unnatural_seeds.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #WORN BELTS
 FSM_vars.state_machine_worn_belts.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_barradin_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_barradin_map), transition_delay_ms = 3000, run_once = True)
@@ -1860,7 +1860,7 @@ FSM_vars.state_machine_worn_belts.AddState(name="GOING OUT IN DANGEROUS LANDS", 
 FSM_vars.state_machine_worn_belts.AddState(name="WAITING YOUR SLOW PC TO LOAD", exit_condition = lambda: (Py4GW.Console.Log(module_name, "WAITING FOR EXPLORABLE MAP", Py4GW.Console.MessageType.Info), LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county)), transition_delay_ms = 3000)
 FSM_vars.state_machine_worn_belts.AddState(name="HEY THERE IS A FIRE ALLY", execute_fn = lambda: useitem(ModelID.Igneous_Summoning_Stone), run_once = True)
 FSM_vars.state_machine_worn_belts.AddState(name="FARMING WORN BELTS", execute_fn = lambda:handle_map_path(FSM_vars.worn_belts_pathing), exit_condition = lambda: Routines.Movement.IsFollowPathFinished(FSM_vars.worn_belts_pathing, FSM_vars.movement_handler) or Survivor(), run_once = False)
-FSM_vars.state_machine_worn_belts.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), exit_condition = lambda: LDoA_IsExplorableMapReady(bot_vars.explorable_green_hills_county), transition_delay_ms = 3000, run_once = True)
+FSM_vars.state_machine_worn_belts.AddState(name="COUNTER", execute_fn = lambda: (Py4GW.Console.Log(module_name, "ADD 1 RUN TO RUN COUNTER", Py4GW.Console.MessageType.Info), increment_run_counter()), run_once = True)
 
 #NICHOLAS SANDFORD
 FSM_vars.state_machine_nicholas_sandford.AddState(name="BARRADIN", execute_fn = lambda: (Py4GW.Console.Log(module_name, "MOVING TO A SAFER DISTRICT", Py4GW.Console.MessageType.Info), LDoA_TravelToRandomRegion(bot_vars.outpost_ranik_map)), exit_condition = lambda: LDoA_IsOutpostMapReady(bot_vars.outpost_ranik_map), transition_delay_ms = 3000, run_once = True)
