@@ -57,7 +57,7 @@ class Routines:
             
         class Agents:
             @staticmethod
-            def InDanger(aggro_area=Range.Earshot):
+            def InDanger(aggro_area=Range.Earshot, aggressive_only = False):
                 from .Agent import Agent
                 from .Player import Player
                 from .AgentArray import AgentArray
@@ -65,6 +65,8 @@ class Routines:
                 enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Utils.Distance(Player.GetXY(), Agent.GetXY(agent_id)) <= aggro_area.value)
                 enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsAlive(agent_id))
                 enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Player.GetAgentID() != agent_id)
+                if aggressive_only:
+                    enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsAggressive(agent_id))
                 if len(enemy_array) > 0:
                     return True
                 return False
@@ -630,7 +632,7 @@ class Routines:
             return Routines.Agents.GetNearestNPCXY(player_pos[0], player_pos[1], distance)
          
         @staticmethod
-        def GetFilteredEnemyArray(x,y,max_distance=4500.0):
+        def GetFilteredEnemyArray(x, y, max_distance=4500.0, aggressive_only = False):
             from .AgentArray import AgentArray
             from .Player import Player
             from .Agent import Agent
@@ -644,67 +646,69 @@ class Routines:
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Utils.Distance((x,y), Agent.GetXY(agent_id)) <= max_distance)
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsAlive(agent_id))
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Player.GetAgentID() != agent_id)
+            if aggressive_only:
+                enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsAggressive(agent_id))
             return enemy_array
                      
         @staticmethod
-        def GetNearestEnemy(max_distance=4500.0):
+        def GetNearestEnemy(max_distance=4500.0, aggressive_only = False):
             from .AgentArray import AgentArray
             from .Player import Player
             from .Py4GWcorelib import Utils
 
             player_pos = Player.GetXY()
-            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance)
+            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance, aggressive_only)
             enemy_array = AgentArray.Sort.ByDistance(enemy_array, player_pos)
             return Utils.GetFirstFromArray(enemy_array)
         
         @staticmethod
-        def GetNearestEnemyCaster(max_distance=4500.0):
+        def GetNearestEnemyCaster(max_distance=4500.0, aggressive_only = False):
             from .AgentArray import AgentArray
             from .Player import Player
             from .Agent import Agent
             from .Py4GWcorelib import Utils
 
             player_pos = Player.GetXY()
-            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance)
+            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance, aggressive_only)
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsCaster(agent_id))
             enemy_array = AgentArray.Sort.ByDistance(enemy_array, player_pos)
             return Utils.GetFirstFromArray(enemy_array)
             
         @staticmethod
-        def GetNearestEnemyMartial(max_distance=4500.0):
+        def GetNearestEnemyMartial(max_distance=4500.0, aggressive_only = False):
             from .AgentArray import AgentArray
             from .Player import Player
             from .Agent import Agent
             from .Py4GWcorelib import Utils
 
             player_pos = Player.GetXY()
-            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance)
+            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance, aggressive_only)
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsMartial(agent_id))
             enemy_array = AgentArray.Sort.ByDistance(enemy_array, player_pos)
             return Utils.GetFirstFromArray(enemy_array)   
         
         @staticmethod
-        def GetNearestEnemyMelee(max_distance=4500.0):
+        def GetNearestEnemyMelee(max_distance=4500.0, aggressive_only = False):
             from .AgentArray import AgentArray
             from .Player import Player
             from .Agent import Agent
             from .Py4GWcorelib import Utils
 
             player_pos = Player.GetXY()
-            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance)
+            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance, aggressive_only)
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsMelee(agent_id))
             enemy_array = AgentArray.Sort.ByDistance(enemy_array, player_pos)
             return Utils.GetFirstFromArray(enemy_array)
         
         @staticmethod
-        def GetNearestEnemyRanged(max_distance=4500.0):
+        def GetNearestEnemyRanged(max_distance=4500.0, aggressive_only = False):
             from .AgentArray import AgentArray
             from .Player import Player
             from .Agent import Agent
             from .Py4GWcorelib import Utils
 
             player_pos = Player.GetXY()
-            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance)
+            enemy_array = Routines.Agents.GetFilteredEnemyArray(player_pos[0], player_pos[1], max_distance, aggressive_only)
             enemy_array = AgentArray.Filter.ByCondition(enemy_array, lambda agent_id: Agent.IsRanged(agent_id))
             enemy_array = AgentArray.Sort.ByDistance(enemy_array, player_pos)
             return Utils.GetFirstFromArray(enemy_array)

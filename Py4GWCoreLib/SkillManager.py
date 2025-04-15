@@ -168,6 +168,7 @@ class SkillManager:
             
     class Autocombat: 
         custom_skill_data_handler = CustomSkillClass()
+        aggressive_enemies_only = False
         class _SkillData:
             def __init__(self, slot):
                 self.skill_id = SkillBar.GetSkillIDBySlot(slot)  # slot is 1 based
@@ -339,9 +340,9 @@ class SkillManager:
         
         def InAggro(self):
             if self.stay_alert_timer.IsExpired():
-                in_danger = Routines.Checks.Agents.InDanger(Range.Earshot)
+                in_danger = Routines.Checks.Agents.InDanger(Range.Earshot, SkillManager.Autocombat.aggressive_enemies_only)
             else:
-                in_danger = Routines.Checks.Agents.InDanger(Range.Spellcast)
+                in_danger = Routines.Checks.Agents.InDanger(Range.Spellcast, SkillManager.Autocombat.aggressive_enemies_only)
                 
             if in_danger:
                 self.stay_alert_timer.Reset()
@@ -374,19 +375,19 @@ class SkillManager:
                 if v_target == 0:
                     v_target = nearest_enemy
             elif target_allegiance == Skilltarget.EnemyCaster:
-                v_target = Routines.Agents.GetNearestEnemyCaster(self.get_combat_distance())
+                v_target = Routines.Agents.GetNearestEnemyCaster(self.get_combat_distance(), SkillManager.Autocombat.aggressive_enemies_only)
                 if v_target == 0 and not targeting_strict:
                     v_target =nearest_enemy
             elif target_allegiance == Skilltarget.EnemyMartial:
-                v_target = Routines.Agents.GetNearestEnemyMartial(self.get_combat_distance())
+                v_target = Routines.Agents.GetNearestEnemyMartial(self.get_combat_distance(), SkillManager.Autocombat.aggressive_enemies_only)
                 if v_target == 0 and not targeting_strict:
                     v_target = nearest_enemy
             elif target_allegiance == Skilltarget.EnemyMartialMelee:
-                v_target = Routines.Agents.GetNearestEnemyMelee(self.get_combat_distance())
+                v_target = Routines.Agents.GetNearestEnemyMelee(self.get_combat_distance(), SkillManager.Autocombat.aggressive_enemies_only)
                 if v_target == 0 and not targeting_strict:
                     v_target = nearest_enemy
             elif target_allegiance == Skilltarget.AllyMartialRanged:
-                v_target = Routines.Agents.GetNearestEnemyRanged(self.get_combat_distance())
+                v_target = Routines.Agents.GetNearestEnemyRanged(self.get_combat_distance(), SkillManager.Autocombat.aggressive_enemies_only)
                 if v_target == 0 and not targeting_strict:
                     v_target = nearest_enemy
             elif target_allegiance == Skilltarget.Ally:
@@ -876,7 +877,7 @@ class SkillManager:
             
             if Player.GetTargetID() == 0 or (target_aliegance != 'Enemy'):
                                 
-                nearest = Routines.Agents.GetNearestEnemy(self.get_combat_distance())
+                nearest = Routines.Agents.GetNearestEnemy(self.get_combat_distance(), SkillManager.Autocombat.aggressive_enemies_only)
                 called_target = self.GetPartyTarget()
 
                 attack_target = 0
